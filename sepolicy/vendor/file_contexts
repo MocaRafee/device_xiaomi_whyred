@@ -32,6 +32,10 @@
 /sys/devices/platform/kcal_ctrl.0(/.*)?         u:object_r:kcal_dev:s0
 /sys/bus/platform/drivers/kcal_ctrl(/.*)?       u:object_r:kcal_dev:s0
 
+# HW Info
+/sys/devices/platform/HardwareInfo(/.*)? u:object_r:sysfs_info:s0
+/sys/devices/platform/HardwareInfo/gsensor  u:object_r:sysfs_info:s0
+
 # Light HAL
 /(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service\.xiaomi_whyred                                                             u:object_r:hal_light_default_exec:s0
 
