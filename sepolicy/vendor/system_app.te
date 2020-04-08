@@ -11,3 +11,5 @@ allow system_app sysfs_kgsl:lnk_file read;
 allow system_app sysfs_kgsl:dir { search };
 
 add_service(system_app, goodix_fingerprint_service)
+allow system_app sysfs_leds:dir search;
+allow system_app sysfs_leds:file { open getattr write };
