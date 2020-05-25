@@ -54,7 +54,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 #add dynamic feature flags here
 PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.audio.feature.a2dp_offload.enable=false \
     vendor.audio.feature.afe_proxy.enable=true \
     vendor.audio.feature.anc_headset.enable=true \
     vendor.audio.feature.battery_listener.enable=false \
@@ -97,9 +96,23 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.audio.feature.audiozoom.enable=false \
     vendor.audio.feature.snd_mon.enable=false
 
+
 #enable AAC frame ctl for A2DP sinks
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.bt.aac_frm_ctl.enabled=true
+
+#A2DP
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    persist.bluetooth.a2dp_offload.disabled=false \
+    ro.bluetooth.a2dp_offload.supported=true \
+    vendor.audio.feature.a2dp_offload.enable=true
+
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    persist.vendor.bt.a2dp.aac_whitelist=false \
+    persist.vendor.qcom.bluetooth.enable.splita2dp=true \
+    persist.vendor.qcom.bluetooth.a2dp_offload_cap=sbc-aptx-aptxhd-aac-ldac \
+    ro.bluetooth.library_name=libbluetooth_qti.so \
+    vendor.bluetooth.soc=cherokee
 
 # Codec2 switch
 PRODUCT_PROPERTY_OVERRIDES += \
