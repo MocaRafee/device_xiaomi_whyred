@@ -30,3 +30,4 @@ allow system_app sysfs_torch:file { open getattr write };
 allow system_app sysfs_graphics:dir search;
 allow system_app sysfs_graphics:file rw_file_perms;
 allow system_app sysfs_device_info:file r_file_perms;
+allow system_app system_data_file:dir { read };

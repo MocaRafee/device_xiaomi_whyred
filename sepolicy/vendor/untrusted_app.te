@@ -2,4 +2,6 @@ get_prop(untrusted_app, persist_camera_prop)
 get_prop(untrusted_app, camera_prop) 
 allow untrusted_app sysfs_kgsl:dir { search };
 allow untrusted_app sysfs_kgsl:lnk_file read;
+allow untrusted_app apexd_prop:file { open getattr map };
+allow untrusted_app bluetooth_a2dp_offload_prop:file { open getattr };
 dontaudit untrusted_app proc_vmstat:file { getattr open };
