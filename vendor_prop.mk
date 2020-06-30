@@ -240,3 +240,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.audio.soundtrigger.phrase.adsp.level=40 \
     ro.vendor.audio.soundtrigger.user.adsp.level=60 \
     ro.vendor.audio.soundtrigger.training.level=50
+
+# Zygote preforking
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.device_config.runtime_native.usap_pool_enabled=true
+
