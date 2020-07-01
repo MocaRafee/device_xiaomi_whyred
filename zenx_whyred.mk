@@ -28,13 +28,13 @@ $(call inherit-product, device/xiaomi/whyred/device.mk)
 # Inherit from custom vendor
 $(call inherit-product, vendor/MiuiCamera/config.mk)
 
-# Inherit Carbon product configuration
-$(call inherit-product, vendor/carbon/config/common.mk)
+# Inherit some common ZenX-OS stuff.
+$(call inherit-product, vendor/zenx/config/common_full_phone.mk)
 
-# Inherit Carbon GSM telephony parts
-$(call inherit-product, vendor/carbon/config/gsm.mk)
+PRODUCT_PACKAGES += \
+    GalleryGoPrebuilt
 
-PRODUCT_NAME := carbon_whyred
+PRODUCT_NAME := zenx_whyred
 PRODUCT_BRAND := Xiaomi
 PRODUCT_DEVICE := whyred
 PRODUCT_MANUFACTURER := Xiaomi
