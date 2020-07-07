@@ -28,11 +28,13 @@ $(call inherit-product, device/xiaomi/whyred/device.mk)
 # Inherit from custom vendor
 $(call inherit-product, vendor/MiuiCamera/config.mk)
 
-# Inhierit from AOSP
-$(call inherit-product, vendor/aosp/config/common_full_phone.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
+# Inherit some common ZenX-OS stuff.
+$(call inherit-product, vendor/zenx/config/common_full_phone.mk)
 
-PRODUCT_NAME := aosp_whyred
+PRODUCT_PACKAGES += \
+    GalleryGoPrebuilt
+
+PRODUCT_NAME := zenx_whyred
 PRODUCT_BRAND := Xiaomi
 PRODUCT_DEVICE := whyred
 PRODUCT_MANUFACTURER := Xiaomi
