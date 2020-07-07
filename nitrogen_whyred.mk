@@ -30,6 +30,7 @@ $(call inherit-product, vendor/MiuiCamera/config.mk)
 
 # Inherit some common Nitrogen stuff.
 $(call inherit-product, vendor/nitrogen/products/common.mk)
+SELINUX_IGNORE_NEVERALLOWS := true
 
 PRODUCT_NAME := nitrogen_whyred
 PRODUCT_BRAND := Xiaomi
