@@ -2,14 +2,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.job_delay=true \
     persist.sys.mcd_config_file=/system/etc/mcd_default.conf \
     drm.service.enabled=true \
+    vendor.video.disable.ubwc=1 \
     debug.sdm.support_writeback=0 \
     persist.vendor.qcomsysd.enabled=1 \
+    ro.vendor.extension_library=libqti-perfd-client.so \
     sys.vendor.shutdown.waittime=500 \
     ro.build.shutdown_timeout=0 \
+    ro.frp.pst=/dev/block/bootdevice/by-name/frp \
     ro.opengles.version=196610 \
-
-# Audio
-PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.qcom.bluetooth.soc=cherokee \
     af.fast_track_multiplier=1 \
     vendor.audio_hal.period_size=240 \
     ro.vendor.audio.sdk.fluencetype=fluence \
@@ -36,22 +37,20 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.audio.safx.pbe.enabled=false \
     vendor.audio.parser.ip.buffer.size=262144 \
     vendor.audio.flac.sw.decoder.24bit=true \
+    persist.vendor.bt.a2dp_offload_cap=sbc-aptx-aptxhd-aac \
+    persist.bluetooth.a2dp_offload.cap=sbc-aptx-aptxhd-aac \
+    ro.vendor.bluetooth.wipower=false
     vendor.audio.use.sw.alac.decoder=true \
     vendor.audio.use.sw.ape.decoder=true \
     vendor.audio.hw.aac.encoder=true \
     vendor.fm.a2dp.conc.disabled=true \
     audio.sys.noisy.broadcast.delay=600 \
     persist.vendor.audio.hifi.int_codec=true \
-    audio.sys.offload.pstimeout.secs=3 \
-    ro.af.client_heap_size_kbyte=7168 \
-    vendor.audio.volume.headset.gain.depcal=true \
-    persist.vendor.bt.aac_frm_ctl.enabled=true \
-    vendor.audio.spkr_prot.tx.sampling_rate=48000 \
-    vendor.audio.adm.buffering.ms=12
+    audio.sys.offload.pstimeout.secs=3
 
+#enable headset calibration
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.vendor.audio.hw.binder.size_kbyte=1024
-
+    vendor.audio.volume.headset.gain.depcal=true
 
 #add dynamic feature flags here
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -76,18 +75,18 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.audio.feature.hdmi_edid.enable=true \
     vendor.audio.feature.hdmi_passthrough.enable=true \
     vendor.audio.feature.hfp.enable=true \
-    vendor.audio.feature.hifi_audio.enable=true \
+    vendor.audio.feature.hifi_audio.enable=false \
     vendor.audio.feature.hwdep_cal.enable=false \
     vendor.audio.feature.incall_music.enable=false \
     vendor.audio.feature.multi_voice_session.enable=true \
     vendor.audio.feature.keep_alive.enable=false \
-    vendor.audio.feature.kpi_optimize.enable=true \
+    vendor.audio.feature.kpi_optimize.enable=false \
     vendor.audio.feature.maxx_audio.enable=false \
     vendor.audio.feature.ras.enable=true \
     vendor.audio.feature.record_play_concurency.enable=false \
     vendor.audio.feature.src_trkn.enable=true \
     vendor.audio.feature.spkr_prot.enable=true \
-    vendor.audio.feature.ssrec.enable=true \
+    vendor.audio.feature.ssrec.enable=false \
     vendor.audio.feature.usb_offload.enable=true \
     vendor.audio.feature.usb_offload_burst_mode.enable=false \
     vendor.audio.feature.usb_offload_sidetone_volume.enable=false \
@@ -95,16 +94,18 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.audio.feature.vbat.enable=true \
     vendor.audio.feature.wsa.enable=false \
     vendor.audio.feature.audiozoom.enable=false \
-    vendor.audio.feature.snd_mon.enable=true
+    vendor.audio.feature.snd_mon.enable=false
 
+
+#enable AAC frame ctl for A2DP sinks
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.bt.aac_frm_ctl.enabled=true
+
+#A2DP
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     persist.bluetooth.a2dp_offload.disabled=false \
     ro.bluetooth.a2dp_offload.supported=true \
     vendor.audio.feature.a2dp_offload.enable=true
-
-# Bluetooth
-PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.qcom.bluetooth.soc=cherokee
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     persist.vendor.bt.a2dp.aac_whitelist=false \
@@ -122,9 +123,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.stagefright.omx_default_rank.sw-audio=1 \
     debug.stagefright.omx_default_rank=0
 
+#Set speaker protection cal tx path sampling rate to 48k
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.audio.spkr_prot.tx.sampling_rate=48000
+
+#Set AudioFlinger client heap size
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.af.client_heap_size_kbyte=7168
+
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.video.disable.ubwc=1 \
     persist.vendor.camera.preview.ubwc=0 \
     persist.vendor.camera.stats.test=0 \
     persist.vendor.camera.depth.focus.cb=0 \
@@ -149,13 +157,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.camera.HAL3.enabled=1 \
     persist.vendor.camera.ltm.overlap=13
 
-# FRP
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.frp.pst=/dev/block/bootdevice/by-name/frp
 
-# Perf
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=libqti-perfd-client.so
+    vendor.audio_hal.in_period_size=144 \
+    vendor.audio_hal.period_multiplier=2 \
+    vendor.audio.adm.buffering.ms=12
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.audio.hw.binder.size_kbyte=1024
 
 # Sensors
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -184,9 +193,30 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.latch_unsignaled=0 \
     debug.sf.disable_backpressure=1 \
     debug.sf.enable_gl_backpressure=1
+
+# The default sf phase offset is set to 6ms, to avoid it be included into next
+# vsync threshold, set high fps early sf and next vsync threshold phase offset
+# to 6.1ms, which is bigger than all sf phase offsets in normal frame rate.
+PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.high_fps_early_phase_offset_ns=6100000 \
     debug.sf.high_fps_early_gl_phase_offset_ns=9000000 \
     debug.sf.phase_offset_threshold_for_next_vsync_ns=6100000
+
+
+# iwlan vowifi corresponding
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.data.iwlan.enable=true
+
+# QTI
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.vendor.qti.va_aosp.support=1
+
+PRODUCT_ODM_PROPERTIES += \
+    ro.vendor.qti.va_odm.support=1
+
+# MiuiCamera
+PRODUCT_PROPERTY_OVERRIDES += \
+    camera.shutter_sound.blacklist=com.android.camera
 
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -207,15 +237,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.use_old_mnc_mcc_format=true \
     persist.sys.fflag.override.settings_network_and_internet_v2=true \
     ro.telephony.iwlan_operation_mode=legacy \
-    persist.radio.NO_STAPA=1 \
-    persist.vendor.data.iwlan.enable=true
-
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    ro.vendor.qti.va_aosp.support=1
-
-PRODUCT_ODM_PROPERTIES += \
-    ro.vendor.qti.va_odm.support=1
-
+    persist.radio.NO_STAPA=1
+	
 # LMKD
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.low_ram=false \
