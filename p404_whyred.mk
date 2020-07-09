@@ -31,6 +31,7 @@ $(call inherit-product, vendor/MiuiCamera/config.mk)
 # Inherit some common ZenX-OS stuff.
 $(call inherit-product, vendor/404/configs/common.mk)
 TARGET_BOOT_ANIMATION_RES := 1080
+SELINUX_IGNORE_NEVERALLOWS := true
 
 PRODUCT_PACKAGES += \
     GalleryGoPrebuilt
