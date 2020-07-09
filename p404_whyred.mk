@@ -29,12 +29,13 @@ $(call inherit-product, device/xiaomi/whyred/device.mk)
 $(call inherit-product, vendor/MiuiCamera/config.mk)
 
 # Inherit some common ZenX-OS stuff.
-$(call inherit-product, vendor/zenx/config/common_full_phone.mk)
+$(call inherit-product, vendor/404/configs/common.mk)
+TARGET_BOOT_ANIMATION_RES := 1080
 
 PRODUCT_PACKAGES += \
     GalleryGoPrebuilt
 
-PRODUCT_NAME := zenx_whyred
+PRODUCT_NAME := p404_whyred
 PRODUCT_BRAND := Xiaomi
 PRODUCT_DEVICE := whyred
 PRODUCT_MANUFACTURER := Xiaomi
